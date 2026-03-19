@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "Types/Team.h"
 #include "TankPawn.generated.h"
 
 class UBoxComponent;
@@ -28,6 +29,7 @@ public:
 	void TurnRight(float Value);
 	void TurnCameraAndTurret(float Value);
 	void Fire();
+	ETeam GetTeam() const;
 
 	UFUNCTION()
 	void OnTankDeath();
@@ -51,6 +53,8 @@ private:
 	UHealthComponent *HealthComponent;
 	UPROPERTY(EditAnywhere)
 	UWeaponComponent *WeaponComponent;
+	UPROPERTY(EditAnywhere)
+	ETeam Team = ETeam::None;
 
 	UPROPERTY(EditAnywhere)
 	float TurretRotationSpeed = 300.f;

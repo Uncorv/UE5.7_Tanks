@@ -91,3 +91,8 @@ void ATankPawn::OnTankDeath()
 	UE_LOG(LogTemp, Log, TEXT("ATankPawn::OnTankDeath"));
 	Destroy();
 }
+
+ETeam ATankPawn::GetTeam() const
+{
+	return Team;
+}
