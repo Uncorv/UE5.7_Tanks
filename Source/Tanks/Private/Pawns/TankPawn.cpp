@@ -3,6 +3,7 @@
 #include "Components/BoxComponent.h"
 #include "Components/TankMovementComponent.h"
 #include "Components/HealthComponent.h"
+#include "Components/WeaponComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 
@@ -39,6 +40,8 @@ ATankPawn::ATankPawn()
 
 	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
 
+	WeaponComponent = CreateDefaultSubobject<UWeaponComponent>(TEXT("WeaponComponent"));
+
 }
 
 void ATankPawn::BeginPlay()
@@ -67,9 +70,7 @@ void ATankPawn::TurnRight(float Value)
 
 void ATankPawn::Fire()
 {
-	//TODO WeaponController
-	UE_LOG(LogTemp, Log, TEXT("ATankPawn::Fire()"));
-	SpawnProjectile();
+	WeaponComponent->Fire(MuzzlePoint->GetComponentTransform());
 }
 
 void ATankPawn::TurnCameraAndTurret(float Value)
@@ -89,24 +90,4 @@ void ATankPawn::OnTankDeath()
 	//TODO Destroy
 	UE_LOG(LogTemp, Log, TEXT("ATankPawn::OnTankDeath"));
 	Destroy();
-}
-
-void ATankPawn::SpawnProjectile()
-{
-	UWorld* World = GetWorld();
-	if (World)
-	{
-		FVector SpawnLocation = MuzzlePoint->GetComponentLocation();
-		FRotator SpawnRotation = MuzzlePoint->GetComponentRotation();
-
-		FActorSpawnParameters SpawnParams;
-		SpawnParams.Owner = this;
-
-		ATankProjectile *Projectile = World->SpawnActor<ATankProjectile>(
-			TankProjectile,
-			SpawnLocation,
-			SpawnRotation,
-			SpawnParams
-		);
-	}
 }

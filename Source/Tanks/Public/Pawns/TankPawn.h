@@ -11,6 +11,7 @@ class UInputComponent;
 class USpringArmComponent;
 class UTankMovementComponent;
 class ATankProjectile;
+class UWeaponComponent;
 
 UCLASS()
 class TANKS_API ATankPawn : public APawn
@@ -27,7 +28,6 @@ public:
 	void TurnRight(float Value);
 	void TurnCameraAndTurret(float Value);
 	void Fire();
-	void SpawnProjectile(); //Temporary
 
 	UFUNCTION()
 	void OnTankDeath();
@@ -49,9 +49,8 @@ private:
 	USpringArmComponent *SpringArmComponent;
 	UPROPERTY(EditAnywhere)
 	UHealthComponent *HealthComponent;
-
 	UPROPERTY(EditAnywhere)
-	TSubclassOf<ATankProjectile> TankProjectile;
+	UWeaponComponent *WeaponComponent;
 
 	UPROPERTY(EditAnywhere)
 	float TurretRotationSpeed = 300.f;
