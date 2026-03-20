@@ -1,4 +1,5 @@
 #include "Actors/TankBase.h"
+#include "GameModes/TanksGameMode.h"
 #include "Components/BoxComponent.h"
 #include "Components/HealthComponent.h"
 
@@ -22,13 +23,20 @@ ATankBase::ATankBase()
 void ATankBase::BeginPlay()
 {
 	Super::BeginPlay();
-	HealthComponent->OnDeath.AddDynamic(this, &ATankBase::OnDeath);
+	HealthComponent->OnDeath.AddDynamic(this, &ATankBase::OnBaseDeath);
 }
 
-void ATankBase::OnDeath()
+void ATankBase::OnBaseDeath()
 {
+	UE_LOG(LogTemp, Log, TEXT("ATankBase::OnBaseDeath"));
 	Destroy();
-	UE_LOG(LogTemp, Log, TEXT("ATankBase::OnDeath"));
+
+	AGameModeBase *BGM = GetWorld()->GetAuthGameMode();
+	ATanksGameMode *TGM = Cast<ATanksGameMode>(BGM);
+	if (TGM)
+	{
+		TGM->HandleBaseDestroyed(Team);
+	}
 }
 
 ETeam ATankBase::GetTeam() const

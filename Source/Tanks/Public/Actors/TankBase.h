@@ -19,7 +19,7 @@ public:
 	void BeginPlay() override;
 
 	UFUNCTION()
-	void OnDeath();
+	void OnBaseDeath();
 
 	ETeam GetTeam() const;
 

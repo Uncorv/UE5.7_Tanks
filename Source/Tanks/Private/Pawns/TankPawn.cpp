@@ -1,4 +1,5 @@
 #include "Pawns/TankPawn.h"
+#include "GameModes/TanksGameMode.h"
 #include "Actors/TankProjectile.h"
 #include "Components/BoxComponent.h"
 #include "Components/TankMovementComponent.h"
@@ -90,6 +91,13 @@ void ATankPawn::OnTankDeath()
 	//TODO Destroy
 	UE_LOG(LogTemp, Log, TEXT("ATankPawn::OnTankDeath"));
 	Destroy();
+
+	AGameModeBase *BGM = GetWorld()->GetAuthGameMode();
+	ATanksGameMode *TGM = Cast<ATanksGameMode>(BGM);
+	if (TGM)
+	{
+		TGM->HandleTankDestroyed(Team);
+	}
 }
 
 ETeam ATankPawn::GetTeam() const
