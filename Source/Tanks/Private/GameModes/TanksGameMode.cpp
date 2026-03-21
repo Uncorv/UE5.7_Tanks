@@ -1,10 +1,11 @@
 #include "GameModes/TanksGameMode.h"
+#include "GameModes/TanksGameState.h"
 
 void ATanksGameMode::StartMatchFlow()
 {
-	if (CurrentMatchState == MatchState::WaitingToStart)
+	if (CurrentMatchState == EMatchState::WaitingToStart)
 	{
-		CurrentMatchState = MatchState::InProgress;
+		CurrentMatchState = EMatchState::InProgress;
 		UE_LOG(LogTemp, Log, TEXT("CurrentMatchState = MatchState::InProgress"));
 	}
 }
@@ -19,6 +20,7 @@ void ATanksGameMode::HandleTankDestroyed(ETeam Team)
 	{
 		--AliveTanksTeamB;
 	}
+	UpdateGameState();
 	CheckWinCondition();
 }
 
@@ -32,6 +34,7 @@ void ATanksGameMode::HandleBaseDestroyed(ETeam Team)
 	{
 		bIsBaseAliveTeamB = false;;
 	}
+	UpdateGameState();
 	CheckWinCondition();
 }
 
@@ -50,5 +53,18 @@ void ATanksGameMode::CheckWinCondition()
 void ATanksGameMode::EndMatch(ETeam WinnerTeam)
 {
 	UE_LOG(LogTemp, Log, TEXT("Winner team is: %d"), WinnerTeam);
-	CurrentMatchState = MatchState::Finished;
+	CurrentMatchState = EMatchState::Finished;
+}
+
+void ATanksGameMode::UpdateGameState()
+{
+	ATanksGameState *TanksGameState = GetGameState<ATanksGameState>();
+	if (GameState)
+	{
+		TanksGameState->SetAliveTanksTeamA(AliveTanksTeamA);
+		TanksGameState->SetAliveTanksTeamB(AliveTanksTeamB);
+		TanksGameState->SetIsBaseAliveTeamA(bIsBaseAliveTeamA);
+		TanksGameState->SetIsBaseAliveTeamB(bIsBaseAliveTeamB);
+		TanksGameState->SetCurrentMatchState(CurrentMatchState);
+	}
 }
