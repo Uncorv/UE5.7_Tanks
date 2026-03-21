@@ -19,6 +19,8 @@ public:
 
 	void ApplyDamage(float Damage);
 	bool IsDead() const;
+	float GetCurrentHealth() const;
+
 	UPROPERTY()
 	FOnDeath OnDeath;
 

@@ -31,3 +31,8 @@ bool UHealthComponent::IsDead() const
 {
 	return bIsDead;
 }
+
+float UHealthComponent::GetCurrentHealth() const
+{
+	return CurrentHealth;
+}

@@ -18,6 +18,8 @@ public:
 
 	void Fire(const FTransform &SpawnTransform);
 
+	bool CanFire() const;
+
 private:
 	void OnCooldownFinished();
 

@@ -6,6 +6,7 @@ void ATanksGameMode::StartMatchFlow()
 	if (CurrentMatchState == EMatchState::WaitingToStart)
 	{
 		CurrentMatchState = EMatchState::InProgress;
+		UpdateGameState();
 		UE_LOG(LogTemp, Log, TEXT("CurrentMatchState = MatchState::InProgress"));
 	}
 }
@@ -50,10 +51,13 @@ void ATanksGameMode::CheckWinCondition()
 	}
 }
 
-void ATanksGameMode::EndMatch(ETeam WinnerTeam)
+void ATanksGameMode::EndMatch(ETeam Winner)
 {
 	UE_LOG(LogTemp, Log, TEXT("Winner team is: %d"), WinnerTeam);
+	
 	CurrentMatchState = EMatchState::Finished;
+	WinnerTeam = Winner;
+	UpdateGameState();
 }
 
 void ATanksGameMode::UpdateGameState()
@@ -66,5 +70,6 @@ void ATanksGameMode::UpdateGameState()
 		TanksGameState->SetIsBaseAliveTeamA(bIsBaseAliveTeamA);
 		TanksGameState->SetIsBaseAliveTeamB(bIsBaseAliveTeamB);
 		TanksGameState->SetCurrentMatchState(CurrentMatchState);
+		TanksGameState->SetWinnerTeam(WinnerTeam);
 	}
 }

@@ -74,6 +74,16 @@ void ATankPawn::Fire()
 	WeaponComponent->Fire(MuzzlePoint->GetComponentTransform());
 }
 
+bool ATankPawn::CanFire() const
+{
+	return WeaponComponent->CanFire();
+}
+
+float ATankPawn::GetCurrentHealth() const
+{
+	return HealthComponent->GetCurrentHealth();
+}
+
 void ATankPawn::TurnCameraAndTurret(float Value)
 {
 	AddControllerYawInput(Value);

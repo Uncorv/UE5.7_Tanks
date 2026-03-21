@@ -29,7 +29,9 @@ public:
 	void TurnRight(float Value);
 	void TurnCameraAndTurret(float Value);
 	void Fire();
+	bool CanFire() const;
 	ETeam GetTeam() const;
+	float GetCurrentHealth() const;
 
 	UFUNCTION()
 	void OnTankDeath();

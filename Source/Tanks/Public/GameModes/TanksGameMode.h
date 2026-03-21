@@ -18,7 +18,7 @@ public:
 	void HandleTankDestroyed(ETeam Team);
 	void HandleBaseDestroyed(ETeam Team);
 	void CheckWinCondition();
-	void EndMatch(ETeam WinnerTeam);
+	void EndMatch(ETeam Winner);
 
 	void UpdateGameState();
 
@@ -28,4 +28,5 @@ private:
 	bool bIsBaseAliveTeamA = true;
 	bool bIsBaseAliveTeamB = true;
 	EMatchState CurrentMatchState = EMatchState::WaitingToStart; 
+	ETeam WinnerTeam;
 };

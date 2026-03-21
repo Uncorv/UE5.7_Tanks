@@ -25,6 +25,11 @@ EMatchState ATanksGameState::GetCurrentMatchState() const
 	return CurrentMatchState;
 }
 
+ETeam ATanksGameState::GetWinnerTeam() const
+{
+	return WinnerTeam;
+}
+
 void ATanksGameState::SetAliveTanksTeamA(int AliveTanks)
 {
 	AliveTanksTeamA = AliveTanks;
@@ -48,4 +53,9 @@ void ATanksGameState::SetIsBaseAliveTeamB(bool bIsAlive)
 void ATanksGameState::SetCurrentMatchState(EMatchState MatchState)
 {
 	CurrentMatchState = MatchState;
+}
+
+void ATanksGameState::SetWinnerTeam(ETeam Winner)
+{
+	WinnerTeam = Winner;
 }

@@ -44,3 +44,11 @@ void UWeaponComponent::OnCooldownFinished()
 {
 	bIsCooldownActive = false;
 }
+
+bool UWeaponComponent::CanFire() const
+{
+	if (bIsCooldownActive)
+		return false;
+	else
+		return true;
+}

@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/GameStateBase.h"
 #include "Types/MatchState.h"
+#include "Types/Team.h"
 #include "TanksGameState.generated.h"
 
 UCLASS()
@@ -16,18 +17,21 @@ public:
 	bool IsBaseAliveTeamA() const;
 	bool IsBaseAliveTeamB() const;
 	EMatchState GetCurrentMatchState() const;
+	ETeam GetWinnerTeam() const;
 
 	void SetAliveTanksTeamA(int AliveTanks);
 	void SetAliveTanksTeamB(int AliveTanks);
 	void SetIsBaseAliveTeamA(bool bIsAlive);
 	void SetIsBaseAliveTeamB(bool bIsAlive);
 	void SetCurrentMatchState(EMatchState MatchState);
+	void SetWinnerTeam(ETeam Winner);
 
 private:
 	int AliveTanksTeamA = 1;
 	int AliveTanksTeamB = 1;
 	bool bIsBaseAliveTeamA = true;
 	bool bIsBaseAliveTeamB = true;
-	EMatchState CurrentMatchState = EMatchState::WaitingToStart; 
+	EMatchState CurrentMatchState = EMatchState::WaitingToStart;
+	ETeam WinnerTeam = ETeam::None;
 
 };
