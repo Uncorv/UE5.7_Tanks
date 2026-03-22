@@ -35,7 +35,6 @@ void ATanksGameMode::HandleBaseDestroyed(ETeam Team)
 	{
 		bIsBaseAliveTeamB = false;;
 	}
-	UpdateGameState();
 	CheckWinCondition();
 }
 
@@ -53,10 +52,10 @@ void ATanksGameMode::CheckWinCondition()
 
 void ATanksGameMode::EndMatch(ETeam Winner)
 {
-	UE_LOG(LogTemp, Log, TEXT("Winner team is: %d"), WinnerTeam);
-	
 	CurrentMatchState = EMatchState::Finished;
 	WinnerTeam = Winner;
+	UE_LOG(LogTemp, Log, TEXT("Winner team is: %d"), WinnerTeam);
+
 	UpdateGameState();
 }
 
