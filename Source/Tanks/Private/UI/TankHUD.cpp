@@ -6,6 +6,8 @@
 
 void ATankHUD::BeginPlay()
 {
+	Super::BeginPlay();
+
 	Font = GEngine->GetMediumFont();
 }
 
