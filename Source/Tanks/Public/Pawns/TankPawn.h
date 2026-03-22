@@ -32,6 +32,9 @@ public:
 	bool CanFire() const;
 	ETeam GetTeam() const;
 	float GetCurrentHealth() const;
+	bool IsDead() const;
+	FRotator GetCurrentTurretRotation() const;
+	FVector GetCurrentTurretLocation() const;
 
 	UFUNCTION()
 	void OnTankDeath();

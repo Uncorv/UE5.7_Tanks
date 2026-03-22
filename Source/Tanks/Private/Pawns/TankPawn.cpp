@@ -96,6 +96,16 @@ void ATankPawn::TurnCameraAndTurret(float Value)
 	}
 }
 
+FRotator ATankPawn::GetCurrentTurretRotation() const
+{
+	return TurretMesh->GetComponentRotation();
+}
+
+FVector ATankPawn::GetCurrentTurretLocation() const
+{
+	return TurretMesh->GetComponentLocation();
+}
+
 void ATankPawn::OnTankDeath()
 {
 	//TODO Destroy
@@ -113,4 +123,9 @@ void ATankPawn::OnTankDeath()
 ETeam ATankPawn::GetTeam() const
 {
 	return Team;
+}
+
+bool ATankPawn::IsDead() const
+{
+	return HealthComponent->IsDead();
 }
