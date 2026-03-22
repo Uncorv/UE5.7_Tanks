@@ -4,6 +4,11 @@
 #include "GameModes/TanksGameState.h"
 #include "Pawns/TankPawn.h"
 
+void ATankHUD::BeginPlay()
+{
+	Font = GEngine->GetMediumFont();
+}
+
 
 void ATankHUD::DrawHUD()
 {

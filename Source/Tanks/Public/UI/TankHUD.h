@@ -10,8 +10,9 @@ class TANKS_API ATankHUD : public AHUD
 	GENERATED_BODY()
 
 public:
+	void BeginPlay() override;
 	void DrawHUD() override;
 
 private:
-	UFont *Font = GEngine->GetMediumFont();
+	UFont *Font;
 };
