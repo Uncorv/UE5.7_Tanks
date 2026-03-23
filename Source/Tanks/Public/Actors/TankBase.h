@@ -22,6 +22,7 @@ public:
 	void OnBaseDeath();
 
 	ETeam GetTeam() const;
+	bool IsDead() const;
 
 private:
 	UPROPERTY(EditAnywhere)
@@ -32,5 +33,6 @@ private:
 	UHealthComponent *HealthComponent;
 	UPROPERTY(EditAnywhere)
 	ETeam Team = ETeam::None;
+	bool bIsDead = false;
 
 };

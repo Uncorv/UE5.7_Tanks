@@ -1,4 +1,5 @@
 #include "Controllers/TankAIController.h"
+#include "Actors/TankBase.h"
 #include "Kismet/GameplayStatics.h"
 #include "Pawns/TankPawn.h"
 
@@ -19,21 +20,8 @@ void ATankAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (!CurrentTarget)
-		FindClosestEnemyTank();
-
-	FVector TargetLocation = CurrentTarget->GetActorLocation();
-	float DistanceToTarget = FVector::Dist(ControlledTankPawn->GetActorLocation(), TargetLocation);
-
-	if (DistanceToTarget < FireRange)
-	{
-		TakeAim();
-		FireAtTarget();
-	}
-	else
-	{
-		MoveToTarget();
-	}
+	UpdateState();
+	ExecuteState();
 }
 
 void ATankAIController::MoveToTarget()
@@ -112,5 +100,63 @@ void ATankAIController::FindClosestEnemyTank()
 				}
 			}
 		}
+	}
+}
+
+bool ATankAIController::IsTargetInFireRange() const
+{
+	FVector TargetLocation = CurrentTarget->GetActorLocation();
+	float DistanceToTarget = FVector::Dist(ControlledTankPawn->GetActorLocation(), TargetLocation);
+
+	return DistanceToTarget < FireRange;
+}
+
+bool ATankAIController::IsValidTarget() const
+{
+	ATankPawn *TP = Cast<ATankPawn>(CurrentTarget);
+	if (TP)
+	{
+		return (TP && !TP->IsDead() && TP->GetTeam() != ControlledTankPawn->GetTeam());
+	}
+	else
+	{
+		return false;
+	}
+}
+
+void ATankAIController::UpdateState()
+{
+	if (IsValidTarget())
+	{
+		if (IsTargetInFireRange())
+		{
+			CurrentState = TankAIState::AttackEnemyTank;
+		}
+		else
+		{
+			CurrentState = TankAIState::MoveToEnemyTank;
+		}
+	}
+	else
+	{
+		CurrentState = TankAIState::Idle;
+	}
+}
+
+void ATankAIController::ExecuteState()
+{
+	if (CurrentState == TankAIState::Idle)
+	{
+		FindClosestEnemyTank();
+	}
+	else if (CurrentState == TankAIState::MoveToEnemyTank)
+	{
+		TakeAim();
+		MoveToTarget();
+	}
+	else if (CurrentState == TankAIState::AttackEnemyTank)
+	{
+		TakeAim();
+		FireAtTarget();
 	}
 }

@@ -40,11 +40,11 @@ void ATanksGameMode::HandleBaseDestroyed(ETeam Team)
 
 void ATanksGameMode::CheckWinCondition()
 {
-	if (AliveTanksTeamA <= 0 || !bIsBaseAliveTeamA)
+	if (!bIsBaseAliveTeamA)
 	{
 		EndMatch(ETeam::TeamB);
 	}
-	else if (AliveTanksTeamB <= 0 || !bIsBaseAliveTeamB)
+	else if (!bIsBaseAliveTeamB)
 	{
 		EndMatch(ETeam::TeamA);
 	}

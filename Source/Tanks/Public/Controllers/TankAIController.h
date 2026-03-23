@@ -10,9 +10,7 @@ enum class TankAIState
 {
 	Idle,
 	MoveToEnemyTank,
-	AttackEnemyTank,
-	MoveToEnemyBase,
-	AttackEnemyBase
+	AttackEnemyTank
 };
 
 UCLASS()
@@ -32,6 +30,11 @@ private:
 	void TakeAim();
 	void FireAtTarget();
 	bool IsAimAligned() const;
+	bool IsTargetInFireRange() const;
+	bool IsValidTarget() const;
+	
+	void UpdateState();
+	void ExecuteState();
 
 
 	UPROPERTY()

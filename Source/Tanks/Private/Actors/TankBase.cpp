@@ -30,6 +30,7 @@ void ATankBase::OnBaseDeath()
 {
 	UE_LOG(LogTemp, Log, TEXT("ATankBase::OnBaseDeath"));
 	Destroy();
+	bIsDead = true;
 
 	AGameModeBase *BGM = GetWorld()->GetAuthGameMode();
 	ATanksGameMode *TGM = Cast<ATanksGameMode>(BGM);
@@ -42,4 +43,9 @@ void ATankBase::OnBaseDeath()
 ETeam ATankBase::GetTeam() const
 {
 	return Team;
+}
+
+bool ATankBase::IsDead() const
+{
+	return bIsDead;
 }
