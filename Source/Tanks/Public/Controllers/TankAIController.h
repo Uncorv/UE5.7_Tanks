@@ -5,12 +5,13 @@
 #include "TankAIController.generated.h"
 
 class ATankPawn;
+class ATankBase;
 
 enum class TankAIState
 {
 	Idle,
-	MoveToEnemyTank,
-	AttackEnemyTank
+	MoveToTarget,
+	AttackTarget
 };
 
 UCLASS()
@@ -25,10 +26,13 @@ public:
 	void Tick(float DelatTime) override;
 
 private:
-	void FindClosestEnemyTank();
+	void FindClosestTarget();
+	ATankBase *FindEnemyBase() const;
+
 	void MoveToTarget();
 	void TakeAim();
 	void FireAtTarget();
+
 	bool IsAimAligned() const;
 	bool IsTargetInFireRange() const;
 	bool IsValidTarget() const;
@@ -36,15 +40,13 @@ private:
 	void UpdateState();
 	void ExecuteState();
 
-
 	UPROPERTY()
 	ATankPawn *ControlledTankPawn;
+	UPROPERTY()
+	ATankBase *EnemyBase;
 	UPROPERTY()
 	AActor *CurrentTarget;
 
 	float FireRange = 1200.f;
-
 	TankAIState CurrentState = TankAIState::Idle;
-
-
 };
