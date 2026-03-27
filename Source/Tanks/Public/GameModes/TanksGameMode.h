@@ -14,17 +14,20 @@ class TANKS_API ATanksGameMode : public AGameModeBase
 	GENERATED_BODY()
 
 public:
+	void BeginPlay() override;
+
 	void StartMatchFlow();
 	void HandleTankDestroyed(ETeam Team);
 	void HandleBaseDestroyed(ETeam Team);
 	void CheckWinCondition();
+	void FindParticipants();
 	void EndMatch(ETeam Winner);
 
 	void UpdateGameState();
 
 private:
-	int AliveTanksTeamA = 2;
-	int AliveTanksTeamB = 2;
+	int AliveTanksTeamA = 0;
+	int AliveTanksTeamB = 0;
 	bool bIsBaseAliveTeamA = true;
 	bool bIsBaseAliveTeamB = true;
 	EMatchState CurrentMatchState = EMatchState::WaitingToStart; 

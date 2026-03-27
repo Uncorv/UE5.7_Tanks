@@ -27,8 +27,8 @@ public:
 	void SetWinnerTeam(ETeam Winner);
 
 private:
-	int AliveTanksTeamA = 2;
-	int AliveTanksTeamB = 2;
+	int AliveTanksTeamA = 0;
+	int AliveTanksTeamB = 0;
 	bool bIsBaseAliveTeamA = true;
 	bool bIsBaseAliveTeamB = true;
 	EMatchState CurrentMatchState = EMatchState::WaitingToStart;

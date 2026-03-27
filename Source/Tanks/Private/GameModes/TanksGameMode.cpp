@@ -1,14 +1,23 @@
 #include "GameModes/TanksGameMode.h"
 #include "GameModes/TanksGameState.h"
+#include "Kismet/GameplayStatics.h"
+#include "Pawns/TankPawn.h"
+
+void ATanksGameMode::BeginPlay()
+{
+	StartMatchFlow();
+}
 
 void ATanksGameMode::StartMatchFlow()
 {
 	if (CurrentMatchState == EMatchState::WaitingToStart)
 	{
 		CurrentMatchState = EMatchState::InProgress;
-		UpdateGameState();
+		FindParticipants();
+
 		UE_LOG(LogTemp, Log, TEXT("CurrentMatchState = MatchState::InProgress"));
 	}
+	UpdateGameState();
 }
 
 void ATanksGameMode::HandleTankDestroyed(ETeam Team)
@@ -48,6 +57,35 @@ void ATanksGameMode::CheckWinCondition()
 	{
 		EndMatch(ETeam::TeamA);
 	}
+}
+
+void ATanksGameMode::FindParticipants()
+{
+	TArray <AActor *> FoundActors;
+	UGameplayStatics::GetAllActorsOfClass(this, ATankPawn::StaticClass(), FoundActors);
+	if (!FoundActors.IsEmpty())
+	{
+		for (auto *Actor : FoundActors)
+		{
+			ATankPawn *TP = Cast<ATankPawn>(Actor);
+			if (TP)
+			{
+				if (TP->GetTeam() == ETeam::TeamA)
+				{
+					++AliveTanksTeamA;
+				}
+				else if (TP->GetTeam() == ETeam::TeamB)
+				{
+					++AliveTanksTeamB;
+				}
+				else
+				{
+					continue;
+				}
+			}
+		}
+	}
+	UpdateGameState();
 }
 
 void ATanksGameMode::EndMatch(ETeam Winner)
