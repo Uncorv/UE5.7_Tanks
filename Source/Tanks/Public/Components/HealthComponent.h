@@ -6,6 +6,7 @@
 
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDeath);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnHealthChanged);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class TANKS_API UHealthComponent : public UActorComponent
@@ -23,6 +24,8 @@ public:
 
 	UPROPERTY()
 	FOnDeath OnDeath;
+	UPROPERTY()
+	FOnHealthChanged OnHealthChanged;
 
 private:
 	UPROPERTY(EditAnywhere)

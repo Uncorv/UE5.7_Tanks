@@ -1,12 +1,13 @@
 #include "Pawns/TankPawn.h"
 #include "GameModes/TanksGameMode.h"
-#include "Actors/TankProjectile.h"
 #include "Components/BoxComponent.h"
 #include "Components/TankMovementComponent.h"
 #include "Components/HealthComponent.h"
 #include "Components/WeaponComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "NiagaraComponent.h"
+#include "NiagaraFunctionLibrary.h"
 
 ATankPawn::ATankPawn()
 {
@@ -50,7 +51,7 @@ void ATankPawn::BeginPlay()
 	Super::BeginPlay();
 	
 	HealthComponent->OnDeath.AddDynamic(this, &ATankPawn::OnTankDeath);
-
+	HealthComponent->OnHealthChanged.AddDynamic(this, &ATankPawn::OnTankHealthChanged);
 }
 
 void ATankPawn::Tick(float DeltaTime)
@@ -71,7 +72,11 @@ void ATankPawn::TurnRight(float Value)
 
 void ATankPawn::Fire()
 {
-	WeaponComponent->Fire(MuzzlePoint->GetComponentTransform());
+	if (CanFire())
+	{
+		WeaponComponent->Fire(MuzzlePoint->GetComponentTransform());
+		PlayVFXFire();
+	}
 }
 
 bool ATankPawn::CanFire() const
@@ -110,6 +115,7 @@ void ATankPawn::OnTankDeath()
 {
 	//TODO Destroy
 	UE_LOG(LogTemp, Log, TEXT("ATankPawn::OnTankDeath"));
+	PlayVFXDeath();
 	Destroy();
 
 	AGameModeBase *BGM = GetWorld()->GetAuthGameMode();
@@ -118,6 +124,41 @@ void ATankPawn::OnTankDeath()
 	{
 		TGM->HandleTankDestroyed(Team);
 	}
+}
+
+void ATankPawn::OnTankHealthChanged()
+{
+	PlayVFXHit();
+}
+
+void ATankPawn::PlayVFXFire()
+{
+	UNiagaraFunctionLibrary::SpawnSystemAtLocation(
+		GetWorld(),
+		NiagaraFire,
+		MuzzlePoint->GetComponentLocation(),
+		MuzzlePoint->GetComponentRotation()
+	);
+}
+
+void ATankPawn::PlayVFXHit()
+{
+	UNiagaraFunctionLibrary::SpawnSystemAtLocation(
+		GetWorld(),
+		NiagaraHit,
+		Box->GetComponentLocation(),
+		Box->GetComponentRotation()
+	);
+}
+
+void ATankPawn::PlayVFXDeath()
+{
+	UNiagaraFunctionLibrary::SpawnSystemAtLocation(
+		GetWorld(),
+		NiagaraDeath,
+		Box->GetComponentLocation(),
+		Box->GetComponentRotation()
+	);
 }
 
 ETeam ATankPawn::GetTeam() const
