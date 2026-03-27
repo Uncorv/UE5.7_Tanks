@@ -19,6 +19,13 @@ ATankProjectile::ATankProjectile()
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> Mesh(TEXT("/Game/Meshes/ProjectileMesh"));
 	ProjectileMesh->SetStaticMesh(Mesh.Object);
 
+	static ConstructorHelpers::FObjectFinder<UMaterialInterface> MaterialFinder(TEXT("/Game/Materials/ProjectileMat"));
+	if (MaterialFinder.Succeeded())
+	{
+		UMaterialInterface *Material = MaterialFinder.Object;
+		ProjectileMesh->SetMaterial(0, Material);
+	}
+
 	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovementComponent"));
 
 	ProjectileMovementComponent->SetUpdatedComponent(SphereComponent);
