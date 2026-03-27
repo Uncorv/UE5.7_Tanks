@@ -47,6 +47,6 @@ private:
 	UPROPERTY()
 	AActor *CurrentTarget;
 
-	float FireRange = 1200.f;
+	float FireRange = 5000.f;
 	TankAIState CurrentState = TankAIState::Idle;
 };
