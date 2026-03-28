@@ -100,7 +100,7 @@ void ATanksGameMode::EndMatch(ETeam Winner)
 void ATanksGameMode::UpdateGameState()
 {
 	ATanksGameState *TanksGameState = GetGameState<ATanksGameState>();
-	if (GameState)
+	if (TanksGameState)
 	{
 		TanksGameState->SetAliveTanksTeamA(AliveTanksTeamA);
 		TanksGameState->SetAliveTanksTeamB(AliveTanksTeamB);
