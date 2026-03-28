@@ -23,7 +23,7 @@ public:
 	ATankAIController();
 
 	void OnPossess(APawn *TankPawn) override;
-	void Tick(float DelatTime) override;
+	void Tick(float DeltaTime) override;
 
 private:
 	void FindClosestTarget();
