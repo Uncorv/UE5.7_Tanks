@@ -28,11 +28,9 @@ private:
 	UPROPERTY(EditAnywhere)
 	UProjectileMovementComponent *ProjectileMovementComponent;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(VisibleAnywhere)
 	float Damage = 25.f;
-	UPROPERTY(EditAnywhere)
-	float LifeTime = 100.f;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(VisibleAnywhere)
 	float ProjSpeed = 10000.f;
 
 };

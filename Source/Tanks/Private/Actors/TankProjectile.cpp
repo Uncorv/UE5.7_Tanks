@@ -11,11 +11,10 @@ ATankProjectile::ATankProjectile()
 	SphereComponent->SetNotifyRigidBodyCollision(true);
 	SphereComponent->SetCollisionResponseToAllChannels(ECR_Block);
 
-	ProjectileMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ProjectileMeshCpmponent"));
+	ProjectileMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ProjectileMeshComponent"));
 	ProjectileMesh->SetupAttachment(SphereComponent);
 	ProjectileMesh->SetSimulatePhysics(false);
 
-	//TODO Make BP class
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> Mesh(TEXT("/Game/Meshes/ProjectileMesh"));
 	ProjectileMesh->SetStaticMesh(Mesh.Object);
 

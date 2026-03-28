@@ -61,7 +61,6 @@ void ATankAIController::FireAtTarget()
 {
 	if (ControlledTankPawn->CanFire() && IsAimAligned())
 	{
-		UE_LOG(LogTemp, Display, TEXT("FIRING!"));
 		ControlledTankPawn->Fire();
 	}
 }

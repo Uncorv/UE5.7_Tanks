@@ -28,7 +28,6 @@ void ATankBase::BeginPlay()
 
 void ATankBase::OnBaseDeath()
 {
-	UE_LOG(LogTemp, Log, TEXT("ATankBase::OnBaseDeath"));
 	Destroy();
 	bIsDead = true;
 

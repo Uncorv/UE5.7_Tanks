@@ -14,9 +14,8 @@ void ATanksGameMode::StartMatchFlow()
 	{
 		CurrentMatchState = EMatchState::InProgress;
 		FindParticipants();
-
-		UE_LOG(LogTemp, Log, TEXT("CurrentMatchState = MatchState::InProgress"));
 	}
+
 	UpdateGameState();
 }
 
@@ -92,7 +91,6 @@ void ATanksGameMode::EndMatch(ETeam Winner)
 {
 	CurrentMatchState = EMatchState::Finished;
 	WinnerTeam = Winner;
-	UE_LOG(LogTemp, Log, TEXT("Winner team is: %d"), WinnerTeam);
 
 	UpdateGameState();
 }

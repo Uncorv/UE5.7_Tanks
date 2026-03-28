@@ -113,8 +113,6 @@ FVector ATankPawn::GetCurrentTurretLocation() const
 
 void ATankPawn::OnTankDeath()
 {
-	//TODO Destroy
-	UE_LOG(LogTemp, Log, TEXT("ATankPawn::OnTankDeath"));
 	PlayVFXDeath();
 	Destroy();
 

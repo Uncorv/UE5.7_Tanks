@@ -20,8 +20,6 @@ void UHealthComponent::ApplyDamage(float Damage)
 	CurrentHealth -= Damage;
 	OnHealthChanged.Broadcast();
 
-	UE_LOG(LogTemp, Log, TEXT("UHealthComponent::ApplyDamage, Health = %f"), CurrentHealth);
-
 	if (CurrentHealth <= 0.f)
 	{
 		bIsDead = true;
