@@ -114,7 +114,6 @@ FVector ATankPawn::GetCurrentTurretLocation() const
 void ATankPawn::OnTankDeath()
 {
 	PlayVFXDeath();
-	Destroy();
 
 	AGameModeBase *BGM = GetWorld()->GetAuthGameMode();
 	ATanksGameMode *TGM = Cast<ATanksGameMode>(BGM);
@@ -122,6 +121,8 @@ void ATankPawn::OnTankDeath()
 	{
 		TGM->HandleTankDestroyed(Team);
 	}
+
+	Destroy();
 }
 
 void ATankPawn::OnTankHealthChanged()

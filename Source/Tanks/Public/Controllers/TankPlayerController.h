@@ -15,11 +15,9 @@ public:
 	virtual void OnPossess(APawn *NewPawn) override;
 	virtual void SetupInputComponent() override;
 
+private:
 	void MoveForward(float Value);
 	void TurnRight(float Value);
 	void TurnTurretAndCamera(float Value);
 	void Fire();
-
-private:
-	ATankPawn *TankPawn;
 };

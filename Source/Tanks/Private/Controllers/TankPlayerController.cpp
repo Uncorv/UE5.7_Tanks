@@ -4,8 +4,6 @@
 void ATankPlayerController::OnPossess(APawn *NewPawn)
 {
 	Super::OnPossess(NewPawn);
-
-	TankPawn = Cast<ATankPawn>(NewPawn);
 }
 
 void ATankPlayerController::SetupInputComponent()
@@ -22,31 +20,35 @@ void ATankPlayerController::SetupInputComponent()
 
 void ATankPlayerController::MoveForward(float Value)
 {
-	if (TankPawn)
+	ATankPawn *TP = Cast<ATankPawn>(GetPawn());
+	if (IsValid(TP))
 	{
-		TankPawn->MoveForward(Value);
+		TP->MoveForward(Value);
 	}
 }
 
 void ATankPlayerController::TurnRight(float Value)
-{
-	if (TankPawn)
+{	
+	ATankPawn *TP = Cast<ATankPawn>(GetPawn());
+	if (IsValid(TP))
 	{
-		TankPawn->TurnRight(Value);
+		TP->TurnRight(Value);
 	}
 }
 
 void ATankPlayerController::TurnTurretAndCamera(float Value)
 {
-	if (TankPawn)
+	ATankPawn *TP = Cast<ATankPawn>(GetPawn());
+	if (IsValid(TP))
 	{
-		TankPawn->TurnCameraAndTurret(Value);
+		TP->TurnCameraAndTurret(Value);
 	}
 }
 void ATankPlayerController::Fire()
 {
-	if (TankPawn)
+	ATankPawn *TP = Cast<ATankPawn>(GetPawn());
+	if (IsValid(TP))
 	{
-		TankPawn->Fire();
+		TP->Fire();
 	}
 }
